@@ -1,6 +1,12 @@
 name: 自动构建二进制文件
 
 on:
+  schedule:
+    - cron: "16 14 * * 0"
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   watch:
     types: started
 
