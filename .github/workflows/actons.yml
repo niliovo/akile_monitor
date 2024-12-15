@@ -10,8 +10,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build Multi Client
         run: |
-          apt update
-          apt install git wget -y
+          sudo apt update
+          sudo apt install git wget -y
           wget https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz
           rm -rf /usr/local/go
           tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz
@@ -54,7 +54,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: "# akile_monitor 客户端二进制文件"
+          body: # akile_monitor 客户端二进制文件
           tag_name: v0.0.2
           make_latest: true
           files: |
