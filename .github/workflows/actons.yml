@@ -59,7 +59,7 @@ jobs:
           body: "# akile_monitor 客户端二进制文件"
           tag_name: v0.0.2
           make_latest: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           files: |
             akile_monitor/client/akile_client-linux-amd64
             akile_monitor/client/akile_client-linux-arm64
