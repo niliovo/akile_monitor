@@ -1,0 +1,17 @@
+services:
+
+  akile_monitor_client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: akile_monitor_client
+    container_name: akile_monitor_client
+    hostname: akile_monitor_client
+    restart: always
+    network_mode: host
+    environment:
+      TZ: "Asia/Shanghai"
+      AUTH_SECRET: "auth_secret" 
+      URL: "ws://localhost:3000/monitor" 
+      NET_NAME: "eth0" 
+      NAME: "HK-Akile"
