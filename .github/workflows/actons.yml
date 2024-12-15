@@ -1,0 +1,68 @@
+name: 自动构建二进制文件
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Multi Client
+        run: |
+          apt update
+          apt install git wget -y
+          wget https://dl.google.com/go/go1.23.4.linux-amd64.tar.gz
+          rm -rf /usr/local/go
+          tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
+          git clone https://github.com/akile-network/akile_monitor
+          cd akile_monitor/client
+          go mod download
+          go mod tidy
+          go mod verify
+          go build -o akile_client-linux-amd64
+          GOOS=linux GOARCH=arm64 go mod download
+          GOOS=linux GOARCH=arm64 go mod tidy
+          GOOS=linux GOARCH=arm64 go mod verify
+          GOOS=linux GOARCH=arm64 go build -o akile_client-linux-arm64
+          GOOS=windows GOARCH=amd64 go mod download
+          GOOS=windows GOARCH=amd64 go mod tidy
+          GOOS=windows GOARCH=amd64 go mod verify
+          GOOS=windows GOARCH=amd64 go build -o akile_client-windows-amd64
+          GOOS=windows GOARCH=arm64 go mod download
+          GOOS=windows GOARCH=arm64 go mod tidy
+          GOOS=windows GOARCH=arm64 go mod verify
+          GOOS=windows GOARCH=arm64 go build -o akile_client-windows-arm64
+          GOOS=darwin GOARCH=amd64 go mod download
+          GOOS=darwin GOARCH=amd64 go mod tidy
+          GOOS=darwin GOARCH=amd64 go mod verify
+          GOOS=darwin GOARCH=amd64 go build -o akile_client-darwin-amd64
+          GOOS=darwin GOARCH=arm64 go mod download
+          GOOS=darwin GOARCH=arm64 go mod tidy
+          GOOS=darwin GOARCH=arm64 go mod verify
+          GOOS=darwin GOARCH=arm64 go build -o akile_client-darwin-arm64
+          GOOS=freebsd GOARCH=amd64 go mod download
+          GOOS=freebsd GOARCH=amd64 go mod tidy
+          GOOS=freebsd GOARCH=amd64 go mod verify
+          GOOS=freebsd GOARCH=amd64 go build -o akile_client-freebsd-amd64
+          GOOS=freebsd GOARCH=arm64 go mod download
+          GOOS=freebsd GOARCH=arm64 go mod tidy
+          GOOS=freebsd GOARCH=arm64 go mod verify
+          GOOS=freebsd GOARCH=arm64 go build -o akile_client-freebsd-arm64
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body: "# akile_monitor 客户端二进制文件"
+          tag_name: v0.0.2
+          make_latest: true
+          files: |
+            akile_client-linux-amd64
+            akile_client-linux-arm64
+            akile_client-windows-amd64
+            akile_client-windows-arm64
+            akile_client-darwin-amd64
+            akile_client-darwin-arm64
+            akile_client-freebsd-amd64
+            akile_client-freebsd-arm64
