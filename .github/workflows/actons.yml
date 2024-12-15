@@ -57,7 +57,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body: "# akile_monitor 客户端二进制文件"
-          tag_name: v0.0.2
           make_latest: true
           files: |
             akile_monitor/client/akile_client-linux-amd64
