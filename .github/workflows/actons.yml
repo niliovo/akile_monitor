@@ -1,6 +1,8 @@
 name: 自动构建二进制文件
 
-on: push
+on:
+  watch:
+    types: started
 
 jobs:
   build:
