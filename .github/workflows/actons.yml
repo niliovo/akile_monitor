@@ -31,11 +31,11 @@ jobs:
           sudo GOOS=windows GOARCH=amd64 go mod download
           sudo GOOS=windows GOARCH=amd64 go mod tidy
           sudo GOOS=windows GOARCH=amd64 go mod verify
-          sudo GOOS=windows GOARCH=amd64 go build -o akile_client-windows-amd64
+          sudo GOOS=windows GOARCH=amd64 go build -o akile_client-windows-amd64.exe
           sudo GOOS=windows GOARCH=arm64 go mod download
           sudo GOOS=windows GOARCH=arm64 go mod tidy
           sudo GOOS=windows GOARCH=arm64 go mod verify
-          sudo GOOS=windows GOARCH=arm64 go build -o akile_client-windows-arm64
+          sudo GOOS=windows GOARCH=arm64 go build -o akile_client-windows-arm64.exe
           sudo GOOS=darwin GOARCH=amd64 go mod download
           sudo GOOS=darwin GOARCH=amd64 go mod tidy
           sudo GOOS=darwin GOARCH=amd64 go mod verify
@@ -62,8 +62,8 @@ jobs:
           files: |
             akile_monitor/client/akile_client-linux-amd64
             akile_monitor/client/akile_client-linux-arm64
-            akile_monitor/client/akile_client-windows-amd64
-            akile_monitor/client/akile_client-windows-arm64
+            akile_monitor/client/akile_client-windows-amd64.exe
+            akile_monitor/client/akile_client-windows-arm64.exe
             akile_monitor/client/akile_client-darwin-amd64
             akile_monitor/client/akile_client-darwin-arm64
             akile_monitor/client/akile_client-freebsd-amd64
